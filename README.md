@@ -23,3 +23,5 @@ Don't. At least not for training. I will allow usage of AI tools to summarize co
 
 The Moltbook client seen here will soon be moved over to a WFCShell-LegacyBatch repo, as I plan on rewritting this in Python, for ironically AI integration, namely, free tier chatgpt for reverse captcha solves.
 WFCShell Batch is still very usable mind you, just limited and you run the risk of needing to tinker to get things working. Thank you for reading this notice.
+
+REVISION: I just realized I'd have to learn Python from scratch, so I'm gonna make this *usable* then work on that. lol.
