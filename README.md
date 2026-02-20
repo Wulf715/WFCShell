@@ -16,4 +16,10 @@ This is a partial joke of course, some could foolishly call this a counter-thesi
 Contribution is accepted and appreciated, AI generated code requires disclaimers, and reciept grants no promises of inclusion. Human made code is prefered per the thesis behind this project.
 
 ***AI Scraping***
+
 Don't. At least not for training. I will allow usage of AI tools to summarize code for those who need it, but highly discourage usage for training.
+
+***NOTICE***
+
+The Moltbook client seen here will soon be moved over to a WFCShell-LegacyBatch repo, as I plan on rewritting this in Python, for ironically AI integration, namely, free tier chatgpt for reverse captcha solves.
+WFCShell Batch is still very usable mind you, just limited and you run the risk of needing to tinker to get things working. Thank you for reading this notice.
