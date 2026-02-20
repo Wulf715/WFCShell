@@ -21,7 +21,6 @@ set agentName=%var[4]%
 set agentDesc=%var[6]%
 rem I would drop a endlocal here to avoid related bugs
 rem HOWEVER doing so breaks the config entirely.
-rem Anything that relies on endlocal being called then is a no-go. shit.
 goto start
 
 rem Formalities.
@@ -520,16 +519,40 @@ IF "%ERRORLEVEL%"=="1" GOTO postGun
 
 :linkGun
 del data.json 2>nul
-echo {"submolt": "%selectedSub%", "title": "%postTitle%", "url": "%postContent%"}>data.json
-curl -X POST https://www.moltbook.com/api/v1/posts -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo {"submolt_name": "%selectedSub%", "title": "%postTitle%", "url": "%postContent%"}>data.json
+curl -o response.txt -X POST https://www.moltbook.com/api/v1/posts -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo Link post attempt made.>>DEBUG.txt
+notepad response.txt
+pause
+echo Get the verification code.
+set /p verificationCode=And paste it! 
+echo Find the answer to the question posed in the prompt...
+set /p answer=And enter it here!
+echo {"verification_code": "%verificationCode%", "answer": "%answer%"} > verify.json
+curl -o verify_response.txt -X POST https://www.moltbook.com/api/v1/verify -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @verify.json
+echo Verification attempt made.>>DEBUG.txt
+notepad verify_response.txt
+
 timeout /t 5 /nobreak
 pause
 goto start
 
 :postGun
 del data.json  2>nul
-echo {"submolt": "%selectedSub%", "title": "%postTitle%", "content": "%postContent%"}>data.json
-curl -X POST https://www.moltbook.com/api/v1/posts -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo {"submolt_name": "%selectedSub%", "title": "%postTitle%", "content": "%postContent%"}>data.json
+curl -o response.txt -X POST https://www.moltbook.com/api/v1/posts -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo Post attempt made.>>DEBUG.txt
+notepad response.txt
+pause
+echo Get the verification code.
+set /p verificationCode=And paste it! 
+echo Find the answer to the question posed in the prompt...
+set /p answer=And enter it here!
+echo {"verification_code": "%verificationCode%", "answer": "%answer%"} > verify.json
+curl -o verify_response.txt -X POST https://www.moltbook.com/api/v1/verify -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @verify.json
+echo Verification attempt made.>>DEBUG.txt
+notepad verify_response.txt
+
 timeout /t 5 /nobreak
 pause
 goto start
@@ -790,6 +813,18 @@ IF "%ERRORLEVEL%"=="1" GOTO commentGun
 del data.json 2>nul
 echo {"content": "%commentContent%"}>data.json
 curl -o response.txt -X POST "https://www.moltbook.com/api/v1/posts/%commentTarget%/comments" -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo Comment attempt made.>>DEBUG.txt
+notepad response.txt
+pause
+echo Get the verification code.
+set /p verificationCode=And paste it! 
+echo Find the answer to the question posed in the prompt...
+set /p answer=And enter it here!
+echo {"verification_code": "%verificationCode%", "answer": "%answer%"} > verify.json
+curl -o verify_response.txt -X POST https://www.moltbook.com/api/v1/verify -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @verify.json
+echo Verification attempt made.>>DEBUG.txt
+notepad verify_response.txt
+
 notepad response.txt
 goto reading
 
@@ -820,12 +855,23 @@ echo.
 choice /n /c:12 /m "Select an option."
 IF "%ERRORLEVEL%"=="2" GOTO reading
 IF "%ERRORLEVEL%"=="1" GOTO replyGun
-ee5d5e7e-eb5d-4d7f-af3b-1f40b8ccd0dc
+
 :replyGun
 del data.json 2>nul
 echo {"content": "%commentContent%", "parent_id": "%replyTarget%"}>data.json
 curl -o response.txt -X POST "https://www.moltbook.com/api/v1/posts/%commentTarget%/comments" -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @data.json
+echo Reply attempt made.>>DEBUG.txt
 notepad response.txt
+pause
+echo Get the verification code.
+set /p verificationCode=And paste it! 
+echo Find the answer to the question posed in the prompt...
+set /p answer=And enter it here!
+echo {"verification_code": "%verificationCode%", "answer": "%answer%"} > verify.json
+curl -o verify_response.txt -X POST https://www.moltbook.com/api/v1/verify -H "Authorization: Bearer %apiKey%" -H "Content-Type: application/json" --data-binary @verify.json
+echo Verification attempt made.>>DEBUG.txt
+notepad verify_response.txt
+
 goto reading
 
 :getPostComments
